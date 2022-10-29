@@ -1,0 +1,147 @@
+body {
+  background: #E7F6F2;
+  min-height: 100vh;
+}
+
+hr {
+  background-color: #D8D9CF;
+}
+
+img {
+  max-width: 100%;
+  height: auto !important;
+}
+
+a {
+  color: #212529;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+a:focus, a:hover {
+  color: #395B64;
+}
+
+footer {
+  position: sticky;
+  top: 100%;
+}
+
+.content {
+  background: white;
+  padding: 20px;
+  border: 1px solid #D8D9CF;
+  border-radius: 3px;
+}
+
+.container-fluid {
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.main-content {
+  padding-right: 3%;
+  padding-top: 20px;
+}
+
+.navbar-brand {
+  color: #EDEDED;
+  font-family: "Montserrat"
+ }
+
+.sidebar {
+  background-color: #395B64;
+  color: white;
+  padding: 2% 3%
+
+ }
+
+.post-preview {
+  background: white;
+  padding: 10px 20px 0px 20px;
+  border: 1px solid #D8D9CF;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.post-meta {
+  color: #395B64;
+}
+
+.post-preview-hr {
+  color: #A5C9CA;
+  margin: 4px;
+}
+
+.post-preview-img {
+  padding: 20px 0;
+}
+
+.post-body {
+  overflow: hidden;
+  margin-top: 1.6rem;
+}
+
+.form-group {
+  margin: 10px 0px;
+}
+
+.form-control-label {
+  font-weight: bold;
+}
+
+.comment-title-bar {
+  background-color: #395B64;
+  color: white;
+  padding: 5px 20px;
+  margin-top: 40px;
+}
+
+.comment-box {
+  background: white;
+  padding: 20px;
+  border: 1px solid #D8D9CF;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.comment-image {
+  border-radius: 50%;
+  width: 65px;
+  float: left;
+}
+
+.comment-author {
+  margin-left: 90px;
+}
+
+.comment {
+  background-color: #f2f2f2;
+  margin-left: 80px;
+  border: 1px;
+  border-radius: 3px;
+  padding: 10px;
+}
+
+
+.btn-custom {
+  font-size:15px;
+  font-family:Arial;
+  width:140px;
+  height:50px;
+  border-width:1px;
+  color:#ffffff;
+  border-color:rgba(71, 112, 131, 1);;
+  border-top-left-radius:10px;
+  border-top-right-radius:10px;
+  border-bottom-left-radius:10px;
+  border-bottom-right-radius:10px;
+  box-shadow:inset 1px 0px 0px 0px #54a3f7;
+  text-shadow:inset 0px -3px 0px rgba(17, 73, 144, 1);
+  background:linear-gradient(rgba(57, 91, 100, 1), rgba(112, 172, 187, 1));
+  margin: 10px 0px;
+}
+
+.btn-custom:hover {
+  background: linear-gradient(rgba(112, 172, 187, 1), rgba(57, 91, 100, 1));
+}

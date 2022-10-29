@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for post in posts %}
+<div class="post-preview">
+    <div class="container">
+        <div class="row">
+            <a href="{{ url_for('show_post', post_id=post.id) }}">
+            <div class="col-lg-4">
+                <a href="{{ url_for('show_post', post_id=post.id) }}">
+                    <img class="post-preview-img" src="{{ post.img_url }}">
+                </a>
+            </div>
+            <div class="col-lg-8">
+                <a href="{{ url_for('show_post', post_id=post.id) }}">
+                    <h3 class="post-title">
+                          {{post.title}}
+                    </h3>
+                    <p class="post-subtitle">
+                          {{post.subtitle}}
+                    </p>
+                </a>
+                    <hr class="post-preview-hr">
+                    <p class="post-meta">Posted by {{post.author.name}} in {{ post.date }}
+
+                    </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% if not loop.last %}
+    <hr>
+{% endif %}
+
+{% endfor %}
+
+{% endblock %}

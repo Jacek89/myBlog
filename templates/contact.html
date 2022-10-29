@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+ <form method="POST" action="">
+     {{ form.hidden_tag() }}
+     <h4 class="border-bottom mb-4">Contact Me</h4>
+     <div class="form-group">
+         {{ form.name.label(class="form-control-label") }}
+         {{ form.name(class="form-control form-control-lg") }}
+     </div>
+     <div class="form-group">
+         {{ form.email.label(class="form-control-label") }}
+         {{ form.email(class="form-control form-control-lg") }}
+     </div>
+          <div class="form-group">
+         {{ form.text.label(class="form-control-label") }}
+         {{ form.text(class="form-control form-control-lg") }}
+     </div>
+     <div class="form-group">
+         {{ form.submit(class="btn-custom") }}
+     </div>
+ </form>
+{% endblock %}
