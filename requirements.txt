@@ -1,0 +1,13 @@
+alembic==1.8.1
+Flask==2.2.2
+Flask_Bcrypt==1.0.1
+Flask_CKEditor==0.4.6
+Flask_Login==0.6.2
+Flask_Mail==0.9.1
+Flask_Migrate==3.1.0
+Flask_Moment==1.0.5
+flask_sqlalchemy==3.0.2
+Flask_WTF==1.0.1
+SQLAlchemy==1.4.42
+Werkzeug==2.2.2
+WTForms==3.0.1
