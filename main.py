@@ -172,7 +172,7 @@ def register():
         if User.query.filter_by(name=form.username.data).first():
             flash(f"Username {form.username.data} is already taken", "danger")
             return render_template('register.html', form=form)
-        secured_password = bcrypt.generate_password_hash(form.password.data, 15)
+        secured_password = bcrypt.generate_password_hash(form.password.data, 15).decode('utf-8')
         new_user = User(
             email=form.email.data,
             password=secured_password,
