@@ -1,4 +1,5 @@
 gunicorn==20.1.0
+psycopg2==2.9.5
 alembic==1.8.1
 Flask==2.2.2
 Flask_Bcrypt==1.0.1
