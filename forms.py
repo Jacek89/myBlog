@@ -8,18 +8,22 @@ ckeditor = CKEditor()
 
 class RegisterForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired(), Length(min=3, max=20)])
-    email = StringField("Email", validators=[DataRequired(), Email()])
+    email = StringField("Email", validators=[DataRequired(), Length(max=100), Email()])
     password = PasswordField("Password", validators=[DataRequired(), Length(min=8)])
     confirm_password = PasswordField(
         "Confirm Password",
-        validators=[DataRequired(), Length(min=8), EqualTo('password', message='Entered passwords do not match')]
+        validators=[
+            DataRequired(),
+            Length(min=8, max=100),
+            EqualTo('password', message='Entered passwords do not match')
+        ]
     )
     submit = SubmitField("Register")
 
 
 class LoginForm(FlaskForm):
-    email = StringField("Email", validators=[DataRequired()])
-    password = PasswordField("Password", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired(), Length(max=100)])
+    password = PasswordField("Password", validators=[DataRequired(), Length(max=100)])
     submit = SubmitField("Login")
 
 
@@ -37,7 +41,7 @@ class CommentForm(FlaskForm):
 
 
 class ContactForm(FlaskForm):
-    name = StringField("Name", validators=[DataRequired(), Length(max=100)])
-    email = StringField("Email", validators=[DataRequired(), Email()])
-    text = TextAreaField("Message", validators=[DataRequired(), Length(max=10000)])
+    name = StringField("Name", validators=[DataRequired(), Length(max=50)])
+    email = StringField("Email", validators=[DataRequired(), Length(max=100), Email()])
+    text = TextAreaField("Message", validators=[DataRequired(), Length(max=1000)])
     submit = SubmitField("Send")

@@ -16,20 +16,20 @@ class BlogPost(db.Model):
 
     post_comments = relationship("Comment", back_populates="commented_post")
 
-    title = db.Column(db.String(250), unique=True, nullable=False)
-    subtitle = db.Column(db.String(250), nullable=False)
-    date = db.Column(db.String(250), nullable=False)
+    title = db.Column(db.Text, unique=True, nullable=False)
+    subtitle = db.Column(db.Text, nullable=False)
+    date = db.Column(db.Text, nullable=False)
     body = db.Column(db.Text, nullable=False)
-    img_url = db.Column(db.String(250), nullable=False)
+    img_url = db.Column(db.Text, nullable=False)
 
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    role = db.Column(db.String(100))
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
-    name = db.Column(db.String(100), unique=True, nullable=False)
+    role = db.Column(db.Text, nullable=False, default="user")
+    email = db.Column(db.Text, unique=True, nullable=False)
+    password = db.Column(db.Text, nullable=False)
+    name = db.Column(db.Text, unique=True, nullable=False)
     posts = relationship("BlogPost", back_populates="author")
     comments = relationship("Comment", back_populates="comment_author")
     needs_rehash = db.Column(db.Boolean())

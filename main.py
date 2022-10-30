@@ -177,7 +177,6 @@ def register():
             email=form.email.data,
             password=secured_password,
             name=form.username.data,
-            role="user"
         )
 
         db.session.add(new_user)
