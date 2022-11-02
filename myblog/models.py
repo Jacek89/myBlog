@@ -1,10 +1,7 @@
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 from sqlalchemy.sql import func
-
-
-db = SQLAlchemy()
+from myblog.extensions import db
 
 
 class BlogPost(db.Model):

@@ -6,10 +6,10 @@
                 Posted by {{post.author.name}} in {{ post.date }}
             {% if current_user.role == "admin": %}
             <div style="float:right;">
-                <a href="{{ url_for('edit_post', post_id=post.id) }}">
+                <a href="{{ url_for('admin.edit_post', post_id=post.id) }}">
                     <button type="button" class="btn btn-secondary btn-sm ms-auto">Edit</button>
                 </a>
-                <a href="{{ url_for('delete_post', post_id=post.id) }}">
+                <a href="{{ url_for('admin.delete_post', post_id=post.id) }}">
                     <button type="button" class="btn btn-danger btn-sm">Delete</button>
                 </a>
             </div>
@@ -49,8 +49,8 @@
 {% else %}
 <p class="p-3 text-center fw-bold">
     You have to be signed in to add comments.
-    <a class="text-muted" href="{{ url_for('login') }}">Login</a> or
-    <a class="text-muted" href="{{ url_for('register') }}">Register</a>
+    <a class="text-muted" href="{{ url_for('auth.login') }}">Login</a> or
+    <a class="text-muted" href="{{ url_for('auth.register') }}">Register</a>
 </p>
 {% endif %}
 {% if post.post_comments %}

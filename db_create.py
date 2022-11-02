@@ -1,3 +1,3 @@
-from main import db, app
+from __init__ import db, app
 with app.app_context():
     db.create_all()
