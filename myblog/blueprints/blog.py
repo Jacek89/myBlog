@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, flash, url_for, request
+from flask import Blueprint, render_template, redirect, flash, url_for, request, current_app
 from flask_login import current_user
 from flask_mail import Message
 from myblog.models import BlogPost, Comment
@@ -12,7 +12,9 @@ blog_bp = Blueprint("blog", __name__)
 @blog_bp.route("/")
 @blog_bp.route("/home")
 def home():
-    posts = BlogPost.query.order_by(BlogPost.id.desc()).all()
+    page = request.args.get('page', 1, type=int)
+    posts_per_page = current_app.config['POSTS_PER_PAGE']
+    posts = BlogPost.query.order_by(BlogPost.id.desc()).paginate(page=page, per_page=posts_per_page)
     return render_template("index.html", posts=posts)
 
 

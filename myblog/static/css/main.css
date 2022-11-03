@@ -32,6 +32,7 @@ footer {
   padding: 20px 2%;
   border: 1px solid #D8D9CF;
   border-radius: 3px;
+  margin-bottom: 20px;
 }
 
 .container-fluid {
@@ -96,7 +97,6 @@ footer {
 .comment-title-bar {
   background-color: #395B64;
   color: white;
-  padding: 5px 20px;
   margin-top: 40px;
 }
 
