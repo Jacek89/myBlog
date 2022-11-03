@@ -4,16 +4,16 @@
     <div class="container">
         <div class="post-meta pb-2">
                 Posted by {{post.author.name}} in {{ post.date }}
-            {% if current_user.role == "admin": %}
-            <div style="float:right;">
-                <a href="{{ url_for('admin.edit_post', post_id=post.id) }}">
-                    <button type="button" class="btn btn-secondary btn-sm ms-auto">Edit</button>
-                </a>
-                <a href="{{ url_for('admin.delete_post', post_id=post.id) }}">
-                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                </a>
-            </div>
-            {% endif %}
+                {% if current_user.role == "admin": %}
+                    <div style="float:right;">
+                        <a href="{{ url_for('admin.edit_post', post_id=post.id) }}">
+                            <button type="button" class="btn btn-secondary btn-sm ms-auto">Edit</button>
+                        </a>
+                        <a href="{{ url_for('admin.delete_post', post_id=post.id) }}">
+                            <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                        </a>
+                    </div>
+                {% endif %}
         </div>
         <hr class="post-preview-hr">
         <h2 class="post-title pb-3 pt-2">
@@ -36,39 +36,39 @@
     {% endif %}
 </div>
 {% if current_user.is_authenticated %}
-<form method="POST" action="">
-     {{ comment_form.hidden_tag() }}
-     <div class="form-group">
-         {{ comment_form.text.label(class="form-control-label") }}
-         {{ comment_form.text(class="form-control form-control-lg") }}
-     </div>
-     <div class="form-group">
-         {{ comment_form.submit(class="btn-custom btn-sm") }}
-     </div>
- </form>
+    <form method="POST" action="">
+        {{ comment_form.hidden_tag() }}
+            <div class="form-group">
+                {{ comment_form.text.label(class="form-control-label") }}
+                {{ comment_form.text(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                {{ comment_form.submit(class="btn-custom btn-sm") }}
+            </div>
+    </form>
 {% else %}
-<p class="p-3 text-center fw-bold">
-    You have to be signed in to add comments.
-    <a class="text-muted" href="{{ url_for('auth.login') }}">Login</a> or
-    <a class="text-muted" href="{{ url_for('auth.register') }}">Register</a>
-</p>
+    <p class="p-3 text-center fw-bold">
+        You have to be signed in to add comments.
+        <a class="text-muted" href="{{ url_for('auth.login') }}">Login</a> or
+        <a class="text-muted" href="{{ url_for('auth.register') }}">Register</a>
+    </p>
 {% endif %}
 {% if post.post_comments %}
-<div class="comment-box">
-{% for comment in post.post_comments %}
-    <div class="comment-image">
-        <img src="https://residencialsenior.com.br/wp-content/uploads/2017/10/avatar.png">
+    <div class="comment-box">
+        {% for comment in post.post_comments %}
+            <div class="comment-image">
+                <img src="https://residencialsenior.com.br/wp-content/uploads/2017/10/avatar.png">
+            </div>
+            <div class="comment-author text-muted">
+                <small>{{ comment.comment_author.name }}</small>
+                <small style="float: right; margin-right: 10px">{{ moment(comment.created_at).fromNow() }}</small>
+            </div>
+            <div class="comment">
+                {{ comment.text }}
+            </div>
+            <br>
+        {% endfor %}
     </div>
-    <div class="comment-author text-muted">
-        <small>{{ comment.comment_author.name }}</small>
-        <small style="float: right; margin-right: 10px">{{ moment(comment.created_at).fromNow() }}</small>
-    </div>
-    <div class="comment">
-        {{ comment.text }}
-</div>
-<br>
-{% endfor %}
-</div>
 {% endif %}
 
 {% endblock %}

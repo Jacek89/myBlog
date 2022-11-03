@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
         {% if title %}
-        myBlog - {{ title  }}
+            myBlog - {{ title  }}
         {% else %}
-        myBlog
+            myBlog
         {%endif %}
     </title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
@@ -19,50 +19,51 @@
     {{ moment.include_moment() }}
 </head>
 <body>
+<div class ="bg-dark">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="{{ url_for('blog.home') }}">myBlog</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 
-<div class="container-fluid bg-dark">
-<nav class="navbar navbar-expand-lg navbar-dark">
-  <a class="navbar-brand" href="{{ url_for('blog.home') }}">myBlog</a>
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-     <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <ul class="navbar-nav me-auto">
+                     <li class="nav-item">
+                         <a class="nav-link" href="{{ url_for('blog.home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('blog.about') }}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('blog.contact') }}">Contact</a>
+                    </li>
+                        {% if current_user.role == "admin": %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('admin.create_post') }}">New Post</a>
+                            </li>
+                        {% endif %}
+                </ul>
 
-        <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('blog.home') }}">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('blog.about') }}">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('blog.contact') }}">Contact</a>
-            </li>
-            {% if current_user.role == "admin": %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('admin.create_post') }}">New Post</a>
-            </li>
-            {% endif %}
-        </ul>
-
-        <ul class="navbar-nav ms-auto">
-             {% if not current_user.is_authenticated: %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
-          </li>
-             {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
-             {% endif %}
-          </li>
-        </ul>
+                <ul class="navbar-nav ms-auto">
+                    {% if not current_user.is_authenticated: %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
+                    {% endif %}
+                        </li>
+                </ul>
 
 
-  </div>
-</nav>
+            </div>
+        </nav>
+    </div>
 </div>
 <div class="container-fluid">
     <div class="row">

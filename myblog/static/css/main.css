@@ -29,18 +29,21 @@ footer {
 
 .content {
   background: white;
-  padding: 20px;
+  padding: 20px 2%;
   border: 1px solid #D8D9CF;
   border-radius: 3px;
 }
 
 .container-fluid {
-  padding-left: 15%;
-  padding-right: 15%;
+  padding: 0 1%;
+  max-width: 1200px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .main-content {
-  padding-right: 3%;
+  padding-right: 2%;
   padding-top: 20px;
 }
 
@@ -58,7 +61,7 @@ footer {
 
 .post-preview {
   background: white;
-  padding: 10px 20px 0px 20px;
+  padding: 10px 1.5% 0px 1.5%;
   border: 1px solid #D8D9CF;
   border-radius: 3px;
   margin-bottom: 20px;

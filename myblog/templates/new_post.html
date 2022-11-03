@@ -3,45 +3,45 @@
 <form method="POST" action="">
     {{ form.hidden_tag() }}
     {% if edit_post: %}
-    <h4 class="border-bottom mb-4">Edit Post</h4>
+        <h4 class="border-bottom mb-4">Edit Post</h4>
     {% else: %}
-    <h4 class="border-bottom mb-4">New Post</h4>
+        <h4 class="border-bottom mb-4">New Post</h4>
     {% endif %}
     <div class="form-group">
-         {{ form.title.label(class="form-control-label") }}
-         {{ form.title(class="form-control form-control-lg") }}
-    </div>
-     <div class="form-text">
-         Title must be less than 100 characters long.
-     </div>
-    <div class="form-group">
-         {{ form.img_url.label(class="form-control-label") }}
-         {{ form.img_url(class="form-control form-control-lg") }}
-    </div>
-     <div class="form-text">
-         URL to the image to be displayed on the preview.
-     </div>
-    <div class="form-group">
-         {{ form.subtitle.label(class="form-control-label") }}
-         {{ form.subtitle(class="form-control form-control-lg") }}
+        {{ form.title.label(class="form-control-label") }}
+        {{ form.title(class="form-control form-control-lg") }}
     </div>
     <div class="form-text">
-         Subtitle must be less than 1000 characters long.
+        Title must be less than 100 characters long.
     </div>
     <div class="form-group">
-         {{ ckeditor.load() }}
-         {{ form.body.label(class="form-control-label") }}
-         {{ form.body(class="form-control form-control-lg") }}
+        {{ form.img_url.label(class="form-control-label") }}
+        {{ form.img_url(class="form-control form-control-lg") }}
+    </div>
+    <div class="form-text">
+        URL to the image to be displayed on the preview.
+    </div>
+    <div class="form-group">
+        {{ form.subtitle.label(class="form-control-label") }}
+        {{ form.subtitle(class="form-control form-control-lg") }}
+    </div>
+    <div class="form-text">
+        Subtitle must be less than 1000 characters long.
+    </div>
+    <div class="form-group">
+        {{ ckeditor.load() }}
+        {{ form.body.label(class="form-control-label") }}
+        {{ form.body(class="form-control form-control-lg") }}
     </div>
     {% if edit_post %}
-    <div class="form-group">
-         {{ form.submit(class="btn-custom", value="Edit Post") }}
-    </div>
+        <div class="form-group">
+            {{ form.submit(class="btn-custom", value="Edit Post") }}
+        </div>
     {% else %}
-    <div class="form-group">
-         {{ form.submit(class="btn-custom") }}
-    </div>
+        <div class="form-group">
+            {{ form.submit(class="btn-custom") }}
+        </div>
     {% endif %}
- </form>
+</form>
 
 {% endblock %}
