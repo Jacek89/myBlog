@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, redirect, flash, url_for, request, current_app
 from flask_login import current_user
-from flask_mail import Message
 from myblog.models import BlogPost, Comment
 from myblog.forms import ContactForm, CommentForm
-from myblog.extensions import db, mail
+from myblog.extensions import db
+from myblog.emails import send_mail
 import os
 
 blog_bp = Blueprint("blog", __name__)
@@ -31,14 +31,14 @@ def contact():
         form = ContactForm()
 
     if form.validate_on_submit():
-        msg = Message('Hello from MyBlog Contact Form', sender=os.environ.get("MAIL_USER"),
-                      recipients=[os.environ.get("MAIL_USER")])
-        msg.body = f"""
-        Name: {form.name.data}
-        E-Mail: {form.email.data}
-
-        Message: {form.text.data}"""
-        mail.send(msg)
+        send_mail(
+            subject='Hello from MyBlog Contact Form',
+            to=os.environ.get("MAIL_USER"),
+            body=f'''
+            Name: {form.name.data}
+            E-mail: {form.email.data}
+            Message: {form.text.data}'''
+        )
         flash("Thank You for your message.", "warning")
         return redirect(url_for('blog.home'))
     return render_template("contact.html", form=form, title="Contact Me")
