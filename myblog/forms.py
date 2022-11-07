@@ -43,3 +43,21 @@ class ContactForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Length(max=100), Email()])
     text = TextAreaField("Message", validators=[DataRequired(), Length(max=1000)])
     submit = SubmitField("Send")
+
+
+class RequestResetForm(FlaskForm):
+    email = StringField("Email", validators=[DataRequired(), Length(max=100), Email()])
+    submit = SubmitField("Reset Password")
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField("Password", validators=[DataRequired(), Length(min=8)])
+    confirm_password = PasswordField(
+        "Confirm Password",
+        validators=[
+            DataRequired(),
+            Length(min=8, max=100),
+            EqualTo('password', message='Entered passwords do not match')
+        ]
+    )
+    submit = SubmitField("Reset Password")

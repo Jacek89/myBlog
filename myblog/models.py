@@ -1,7 +1,10 @@
 from sqlalchemy.orm import relationship
+from flask import current_app
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 from myblog.extensions import db
+import datetime
+import jwt
 
 
 class BlogPost(db.Model):
@@ -30,6 +33,31 @@ class User(UserMixin, db.Model):
     posts = relationship("BlogPost", back_populates="author")
     comments = relationship("Comment", back_populates="comment_author")
     needs_rehash = db.Column(db.Boolean())
+
+    def get_reset_token(self, expires_sec=600):
+        reset_token = jwt.encode(
+            {
+                "confirm": self.id,
+                "exp": datetime.datetime.now(tz=datetime.timezone.utc)
+                       + datetime.timedelta(seconds=expires_sec)
+            },
+            current_app.config['SECRET_KEY'],
+            algorithm="HS256"
+        )
+        return reset_token
+
+    @staticmethod
+    def verify_reset_token(token):
+        try:
+            data = jwt.decode(
+                token,
+                current_app.config['SECRET_KEY'],
+                leeway=datetime.timedelta(seconds=10),
+                algorithms=["HS256"]
+            )
+        except:
+            return None
+        return User.query.get(data.get('confirm'))
 
 
 class Comment(db.Model):
