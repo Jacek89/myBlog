@@ -15,5 +15,11 @@
          {{ form.submit(class="btn-custom") }}
          <a href="{{ url_for('auth.reset_request') }}" class="ps-2"><small>Forgot Password?</small></a>
      </div>
+     <hr>
+     <div class="text-center pb-3">
+         <a href="{{url_for('auth.google') }}">
+             <img src="{{ url_for('static', filename='images/btn_google_signin_dark_focus_web.png') }}">
+         </a>
+     </div>
  </form>
 {% endblock %}

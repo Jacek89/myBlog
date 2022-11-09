@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app
 from flask_login import current_user, login_user, logout_user, login_required
 from myblog.models import User
 from myblog.forms import RegisterForm, LoginForm, RequestResetForm, ResetPasswordForm
-from myblog.extensions import db, bcrypt, login_manager
+from myblog.extensions import db, bcrypt, login_manager, oauth
 from myblog.emails import send_mail
+from myblog.utils import random_string_generator
 from werkzeug.security import check_password_hash
 
 auth_bp = Blueprint("auth", __name__)
@@ -95,6 +96,7 @@ If you did not make this request then simply ignore this email and no changes wi
             flash("No account exists at this email address", "danger")
     return render_template('reset_request.html', form=form, title='Reset Password')
 
+
 @auth_bp.route("/reset_password/<token>", methods=["GET", "POST"])
 def reset_token(token):
     if current_user.is_authenticated:
@@ -110,3 +112,41 @@ def reset_token(token):
         flash("Your password has been updated! You are now able to log in", "warning")
         return redirect(url_for('auth.login'))
     return render_template('change_password.html', form=form, title="Reset Password")
+
+
+@auth_bp.route('/google/')
+def google():
+    oauth.register(
+        name='google',
+        client_id=current_app.config['GOOGLE_CLIENT_ID'],
+        client_secret=current_app.config['GOOGLE_CLIENT_SECRET'],
+        server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
+        client_kwargs={
+            'scope': 'openid email profile'
+        }
+    )
+
+    redirect_uri = url_for('auth.google_auth', _external=True)
+    return oauth.google.authorize_redirect(redirect_uri)
+
+
+@auth_bp.route('/google/auth/', methods=["GET", "POST"])
+def google_auth():
+    token = oauth.google.authorize_access_token()
+    user = User.query.filter_by(email=token['userinfo']['email']).first()
+    if user:
+        login_user(user)
+        flash(f"Successfully logged in as {user.name}", "warning")
+        return redirect(url_for('blog.home'))
+    else:
+        random_password = bcrypt.generate_password_hash(random_string_generator(32), 15).decode('utf-8')
+        new_user = User(
+            email=token['userinfo']['email'],
+            password=random_password,
+            name=f"User-{random_string_generator(6)}",
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        login_user(new_user)
+        flash(f"Successfully logged in as {new_user.name}", "warning")
+    return redirect(url_for('blog.home'))

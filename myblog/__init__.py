@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_migrate import Migrate
 from flask_moment import Moment
-from myblog.extensions import db, ckeditor, bcrypt, login_manager, mail
+from myblog.extensions import db, ckeditor, bcrypt, login_manager, mail, oauth
 from myblog.blueprints.auth import auth_bp
 from myblog.blueprints.blog import blog_bp
 from myblog.blueprints.admin import admin_bp
@@ -26,6 +26,11 @@ login_manager.login_message_category = 'warning'
 ckeditor.init_app(app)
 bcrypt.init_app(app)
 
+app.config['GOOGLE_CLIENT_ID'] = os.environ.get('GOOGLE_CLIENT_ID')
+app.config['GOOGLE_CLIENT_SECRET'] = os.environ.get('GOOGLE_CLIENT_SECRET')
+
+oauth.init_app(app)
+
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = os.environ.get("MAIL_USER")
@@ -39,6 +44,3 @@ mail.init_app(app)
 app.register_blueprint(blog_bp)
 app.register_blueprint(admin_bp)
 app.register_blueprint(auth_bp)
-
-
-
