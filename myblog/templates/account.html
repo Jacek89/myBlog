@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<h4 class="border-bottom mb-4">Your Account</h4>
+<div class="content">
+    <div class="row">
+        <div class="col-sm-4 text-center">
+            <div class="profile-image m-3">
+                <img src="{{ current_user.email | gravatar}}">
+            </div>
+            <div class="fs-4 fw-bold">
+                {{ current_user.name }}
+            </div>
+            <div class="text-muted pb-3">
+                <small>{{ current_user.email }}</small>
+            </div>
+        </div>
+        <div class="col-sm-8" style="padding:0 3%;">
+            <div class="fw-bold pb-3">
+                Account Options
+            </div>
+            {% if eligible_for_change %}
+            <form method="POST" action="">
+            {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.username.label }}
+                    {% if form.username.errors %}
+                        {{ form.username(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.username(class="form-control") }}
+                    {% endif %}
+                    <div class="form-group">
+                        {{ form.submit(class="btn btn-secondary btn-sm", style="float: right;") }}
+                    </div>
+                    <div class="form-text">
+                        Your username must be 3-20 characters long. <br>
+                        <span class="text-danger">
+                            Warning! You can change your username only once, because your name was generated automatically.
+                        </span>
+                    </div>
+                </div>
+             </form>
+            {% endif %}
+            <a href="{{ url_for('auth.reset_request') }}"><p>Change Password</p></a>
+            <a href="https://pl.gravatar.com/"><p class="py-1"> Change Avatar - gravatar.com</p></a>
+            <hr>
+            <p>Posts: {{ current_user.posts | length }}</p>
+            <p class="py-1">Comments: {{ current_user.comments | length }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, url_for, flash, render_template, abort
 from flask_login import current_user
 from myblog.forms import NewPostForm
-from myblog.models import BlogPost
+from myblog.models import BlogPost, Comment
 from myblog.extensions import db
 from datetime import date
 from functools import wraps
@@ -68,3 +68,12 @@ def delete_post(post_id):
     db.session.delete(post)
     db.session.commit()
     return redirect(url_for('blog.home'))
+
+
+@admin_bp.route("/delete_comment/<int:comment_id>")
+@admin_only
+def delete_comment(comment_id):
+    comment = Comment.query.get_or_404(comment_id)
+    db.session.delete(comment)
+    db.session.commit()
+    return redirect(url_for('blog.show_post', post_id=comment.post_id))

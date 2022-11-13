@@ -61,3 +61,9 @@ class ResetPasswordForm(FlaskForm):
         ]
     )
     submit = SubmitField("Reset Password")
+
+
+class ChangeUsernameForm(FlaskForm):
+    username = StringField("Change Username", validators=[DataRequired(), Length(min=3, max=20)])
+    submit = SubmitField("Change")
+

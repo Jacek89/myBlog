@@ -22,6 +22,11 @@ a:focus, a:hover {
   color: #395B64;
 }
 
+p {
+  margin: 0;
+  padding: 0;
+}
+
 footer {
   position: sticky;
   top: 100%;
@@ -35,7 +40,7 @@ footer {
   margin-bottom: 20px;
 }
 
-.container-fluid {
+.container-website {
   padding: 0 1%;
   max-width: 1200px;
   width: 100%;
@@ -102,30 +107,39 @@ footer {
 
 .comment-box {
   background: white;
-  padding: 20px;
+  padding: 2.5%;
   border: 1px solid #D8D9CF;
   border-radius: 3px;
   margin-bottom: 20px;
 }
 
 .comment-image {
-  border-radius: 50%;
-  width: 65px;
+  width: 50px;
   float: left;
 }
 
+.comment-image img {
+  background-color: #F8F8F8;
+  border-radius: 50%
+}
+
 .comment-author {
-  margin-left: 90px;
+  margin-left: calc(2% + 60px);
 }
 
 .comment {
   background-color: #f2f2f2;
-  margin-left: 80px;
+  margin-left: calc(2% + 55px);
   border: 1px;
   border-radius: 3px;
   padding: 10px;
 }
 
+.profile-image img{
+  width: 100px;
+  background-color: #F8F8F8;
+  border-radius: 50%
+}
 
 .btn-custom {
   font-size:15px;

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="post-preview">
-    <div class="container">
+    <div class="container pb-3">
         <div class="post-meta pb-2">
                 Posted by {{post.author.name}} in {{ post.date }}
                 {% if current_user.role == "admin": %}
@@ -57,11 +57,16 @@
     <div class="comment-box">
         {% for comment in post.post_comments %}
             <div class="comment-image">
-                <img src="https://residencialsenior.com.br/wp-content/uploads/2017/10/avatar.png">
+                <img src="{{ comment.comment_author.email | gravatar}}">
             </div>
             <div class="comment-author text-muted">
                 <small>{{ comment.comment_author.name }}</small>
-                <small style="float: right; margin-right: 10px">{{ moment(comment.created_at).fromNow() }}</small>
+                {% if current_user.role == "admin": %}
+                    <small>
+                        <a style="color: red;" href="{{ url_for('admin.delete_comment', comment_id=comment.id) }}">✘</a>
+                    </small>
+                {% endif %}
+                <small style="float: right; margin-right: 2.5%">{{ moment(comment.created_at).fromNow() }}</small>
             </div>
             <div class="comment">
                 {{ comment.text }}

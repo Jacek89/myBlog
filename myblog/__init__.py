@@ -1,6 +1,6 @@
 from flask import Flask
 from myblog.config import Config
-from myblog.extensions import db, ckeditor, bcrypt, login_manager, mail, oauth, moment, migrate
+from myblog.extensions import db, ckeditor, bcrypt, login_manager, mail, oauth, moment, migrate, gravatar
 from myblog.blueprints.auth import auth_bp
 from myblog.blueprints.blog import blog_bp
 from myblog.blueprints.admin import admin_bp
@@ -18,6 +18,7 @@ def create_app():
     mail.init_app(app)
     moment.init_app(app)
     migrate.init_app(app, db)
+    gravatar.init_app(app)
 
     app.register_blueprint(blog_bp)
     app.register_blueprint(admin_bp)

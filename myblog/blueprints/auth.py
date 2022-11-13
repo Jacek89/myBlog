@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app
 from flask_login import current_user, login_user, logout_user, login_required
 from myblog.models import User
-from myblog.forms import RegisterForm, LoginForm, RequestResetForm, ResetPasswordForm
+from myblog.forms import RegisterForm, LoginForm, RequestResetForm, ResetPasswordForm, ChangeUsernameForm
 from myblog.extensions import db, bcrypt, login_manager, oauth
 from myblog.emails import send_mail
 from myblog.utils import random_string_generator
@@ -68,6 +68,24 @@ def login():
     return render_template('login.html', form=form, title="Login")
 
 
+@auth_bp.route('/account', methods=["GET", "POST"])
+@login_required
+def account():
+    form = ChangeUsernameForm()
+    if request.method == "POST" and form.validate():
+        if User.query.filter_by(name=form.username.data).first():
+            flash(f"Username {form.username.data} is already taken", "danger")
+            return redirect(url_for('auth.account'))
+        current_user.name = form.username.data
+        db.session.commit()
+        flash("Your username has been updated!", "warning")
+        return redirect(url_for('auth.account'))
+    return render_template('account.html',
+                           eligible_for_change=current_user.name[0:5] == "User-",
+                           form=form,
+                           title='Account')
+
+
 @auth_bp.route("/logout")
 @login_required
 def logout():
@@ -79,8 +97,9 @@ def logout():
 @auth_bp.route("/reset_password", methods=["GET", "POST"])
 def reset_request():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
-    form = RequestResetForm()
+        form = RequestResetForm(email=current_user.email)
+    else:
+        form = RequestResetForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
@@ -99,8 +118,6 @@ If you did not make this request then simply ignore this email and no changes wi
 
 @auth_bp.route("/reset_password/<token>", methods=["GET", "POST"])
 def reset_token(token):
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
     user = User.verify_reset_token(token=token)
     if user is None:
         flash("This is invalid or expired token. Please try again.", 'danger')

@@ -20,7 +20,7 @@
 </head>
 <body>
 <div class ="bg-dark">
-    <div class="container-fluid">
+    <div class="container-fluid container-website">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <a class="navbar-brand" href="{{ url_for('blog.home') }}">myBlog</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,6 +55,9 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('auth.account') }}">Account</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
                         </li>
                     {% endif %}
@@ -65,7 +68,7 @@
         </nav>
     </div>
 </div>
-<div class="container-fluid">
+<div class="container-fluid container-website">
     <div class="row">
         <div class="col-md-8 main-content">
             {% with messages = get_flashed_messages(with_categories=true) %}
