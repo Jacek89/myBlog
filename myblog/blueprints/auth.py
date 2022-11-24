@@ -3,7 +3,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from myblog.models import User
 from myblog.forms import RegisterForm, LoginForm, RequestResetForm, ResetPasswordForm, ChangeUsernameForm
 from myblog.extensions import db, bcrypt, login_manager, oauth
-from myblog.emails import send_mail
+from myblog.tasks import send_mail
 from myblog.utils import random_string_generator
 from werkzeug.security import check_password_hash
 

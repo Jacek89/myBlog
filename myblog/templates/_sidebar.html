@@ -1,0 +1,27 @@
+<div class="content-section">
+    <h3 class="text-center">mySidebar</h3>
+    <p class='text-muted-light text-center py-2'>USEFUL LINKS</p>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-light">
+            <a href="https://github.com/Jacek89/myBlog">GitHub repository</a>
+        </li>
+        <li class="list-group-item list-group-item-light">
+            <a href="https://www.python.org/">Python.org</a>
+        </li>
+        <li class="list-group-item list-group-item-light">
+            <a href="https://flask.palletsprojects.com/en/2.2.x/">Flask Documentation</a>
+        </li>
+    </ul>
+    <p class='text-muted-light text-center pb-2 pt-4'>NEWS: TOP HEADLINES</p>
+    <ul class="list-group">
+        {% if sidebar_news == 'fail' %}
+            <li class="list-group-item list-group-item-light">Something went wrong...</li>
+        {% else %}
+            {% for article in sidebar_news %}
+            <li class="list-group-item list-group-item-light">
+                <a href="{{ article['url'] }}">{{ article['title'] }}</a>
+            </li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+</div>

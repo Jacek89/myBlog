@@ -18,3 +18,4 @@ PyJWT==2.6.0
 requests==2.28.1
 Authlib==1.1.0
 Flask-Gravatar==0.5.0
+redis==4.3.4

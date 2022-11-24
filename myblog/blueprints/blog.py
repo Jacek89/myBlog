@@ -3,7 +3,7 @@ from flask_login import current_user
 from myblog.models import BlogPost, Comment
 from myblog.forms import ContactForm, CommentForm
 from myblog.extensions import db
-from myblog.emails import send_mail
+from myblog.tasks import send_mail, get_sidebar_news
 import os
 
 blog_bp = Blueprint("blog", __name__)
@@ -61,3 +61,8 @@ def show_post(post_id):
             db.session.add(new_comment)
             db.session.commit()
     return render_template('post.html', post=post, comment_form=comment_form)
+
+
+@blog_bp.app_context_processor
+def sidebar_news():
+    return dict(sidebar_news=get_sidebar_news())
